@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Specimen Calculator</title>
+</head>
+<body>
+
+<h2>Specimen Size Calculator</h2>
+
+<form method="POST" enctype="multipart/form-data">
+
+    Username: <input type="text" name="username" required><br><br>
+
+    Measured Size (mm): <input type="number" step="any" name="measured" required><br><br>
+
+    Upload Image: <input type="file" name="image"><br><br>
+
+    Microscope:
+    <select name="microscope">
+        {% for m in microscopes %}
+        <option value="{{m}}">{{m}}</option>
+        {% endfor %}
+    </select><br><br>
+
+    Output Unit:
+    <select name="unit">
+        {% for u in units %}
+        <option value="{{u}}">{{u}}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <button type="submit">Calculate</button>
+</form>
+
+<br>
+<a href="/records">View Records</a>
+
+{% if result %}
+<hr>
+<h3>Result</h3>
+<p>User: {{result.username}}</p>
+<p>Measured: {{result.measured}} mm</p>
+
+<p>Step 1: {{result.measured}} ÷ {{result.magnification}} = {{result.real_mm}} mm</p>
+<p>Step 2: {{result.real_mm}} × {{result.factor}} = {{result.final}} {{result.unit}}</p>
+
+<h4>Final Answer: {{result.final}} {{result.unit}}</h4>
+{% endif %}
+
+</body>
+</html>
